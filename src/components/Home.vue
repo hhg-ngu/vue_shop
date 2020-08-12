@@ -2,8 +2,8 @@
   <el-container>
     <el-header>
       <div>后台管理系统</div>
-      <el-button type="info" @click="logout">退出</el-button></el-header
-    >
+      <el-button type="info" @click="logout">退出</el-button>
+    </el-header>
     <el-container>
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle_btn" @click="toggleCollapse">|||</div>
@@ -14,20 +14,19 @@
           unique-opened
           :collapse="isCollapse"
           :collapse-transition="false"
+          router
+          :default-active="activePath"
         >
-          <el-submenu
-            :index="item.id + ''"
-            v-for="item in meunList"
-            :key="item.id"
-          >
+          <el-submenu :index="item.id + ''" v-for="item in meunList" :key="item.id">
             <template slot="title">
               <i :class="iconObj[item.id]"></i>
               <span>{{ item.authName }}</span>
             </template>
             <el-menu-item
-              :index="subitem.id + ''"
+              :index="'/'+subitem.path"
               v-for="subitem in item.children"
               :key="subitem.id"
+              @click="saveActive('/'+subitem.path)"
             >
               <template slot="title">
                 <i class="el-icon-menu"></i>
@@ -37,7 +36,9 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -55,10 +56,12 @@ export default {
         "145": "el-icon-s-platform",
       },
       isCollapse: false,
+      activePath: "",
     };
   },
   created() {
     this.getMenuList();
+    this.activePath = window.sessionStorage.getItem("activePath");
   },
   methods: {
     logout() {
@@ -73,6 +76,10 @@ export default {
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
+    },
+    saveActive(activePath) {
+      window.sessionStorage.setItem("activePath", activePath);
+      this.activePath = activePath;
     },
   },
 };
