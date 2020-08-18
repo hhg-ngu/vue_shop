@@ -1,29 +1,15 @@
 # vue_shop
 
-## Project setup
+**vue+axios+router+element ui 完成的管理系统，也用到一些 lodash、nprogress...之类的玩意儿**
+
+## 安装依赖
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 启动
+
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
